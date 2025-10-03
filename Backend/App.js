@@ -18,7 +18,7 @@ app.use(express.json());
 
 //Routes
 app.use('/api/user', apiRouter);
-app.use('/api/ai', aiRouter)
+app.use('/api/ai', verifyToken, aiRouter);
 //Server
 const port = process.env.PORT || 5000;
 app.listen(port, () => {

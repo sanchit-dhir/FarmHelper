@@ -15,8 +15,8 @@ const soil = async (req, res) => {
     const prompt = makeSoilFertilizerPrompt(locality, cropType, growthStage, soilType, message);
     const responseTxt = await CallGeminiWithTxt(prompt);
     const responseJson = await extractJSON(responseTxt);
-    textToSpeech(responseJson.speech_index, 'public/output.mp3');
-    res.status(200).json({ message: "Success!", data: responseJson, audio: 'http://localhost:3000/public/output.mp3' });
+    await textToSpeech(responseJson.speech_index, 'public/output.mp3');
+    res.status(200).json({ message: "Success!", data: responseJson, audio: 'http://localhost:3000/output.mp3' });
   } catch (error) {
     console.log(error);
   }

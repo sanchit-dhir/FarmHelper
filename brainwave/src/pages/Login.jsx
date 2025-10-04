@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
+import nameAudio from "../assets/name.mp3";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
+
+  const playAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play();
+      setIsPlaying(true);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +53,15 @@ const Login = () => {
   return (
     <div className="relative min-h-screen bg-n-8 overflow-hidden">
       <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+      
+      {/* Audio Element */}
+      <audio
+        ref={audioRef}
+        src={nameAudio}
+        onEnded={() => setIsPlaying(false)}
+        onPause={() => setIsPlaying(false)}
+        onPlay={() => setIsPlaying(true)}
+      />
       
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-n-8 via-n-7 to-n-6">
@@ -84,8 +103,26 @@ const Login = () => {
                     placeholder="Enter your username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className="w-full pl-12 pr-4 py-4 bg-n-7/50 border border-n-5/30 rounded-2xl text-n-1 placeholder-n-4 focus:outline-none focus:ring-2 focus:ring-color-1/50 focus:border-color-1/50 transition-all duration-200"
+                    className="w-full pl-12 pr-12 py-4 bg-n-7/50 border border-n-5/30 rounded-2xl text-n-1 placeholder-n-4 focus:outline-none focus:ring-2 focus:ring-color-1/50 focus:border-color-1/50 transition-all duration-200"
                   />
+                  {username && (
+                    <button
+                      type="button"
+                      onClick={playAudio}
+                      disabled={isPlaying}
+                      className="absolute inset-y-0 right-0 pr-4 flex items-center text-color-1 hover:text-color-2 transition-colors disabled:opacity-50"
+                    >
+                      {isPlaying ? (
+                        <svg className="w-5 h-5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                        </svg>
+                      ) : (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      )}
+                    </button>
+                  )}
                 </div>
               </div>
 

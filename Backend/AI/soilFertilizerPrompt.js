@@ -23,6 +23,7 @@ Rules:
 - Include soil health improvement tips for the long run.
 - Keep all numbers in integers or decimals only.
 - Output must start with { and end with }, no trailing commas.
+- Additionally, provide a field "speech_index" which contains a very short and simple Hindi summary of the advice (1–2 sentences, spoken style).
 
 Output Format (JSON Object):
 {
@@ -39,8 +40,9 @@ Output Format (JSON Object):
   "organic_alternatives": [ string, string, string ],
   "irrigation_advice": string,
   "soil_health_tips": [ string, string, string ],
-  "caution": [ string, string ]
-}`
+  "caution": [ string, string ],
+  "speech_index": string // short Hindi summary for farmers
+}`;
 }
 
 module.exports = makeSoilFertilizerPrompt;

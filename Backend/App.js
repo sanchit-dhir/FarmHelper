@@ -1,6 +1,7 @@
 // Imports
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const apiRouter = require('./routes/apiRoutes');
@@ -25,6 +26,7 @@ app.options('/{*splat}', cors()); // Express 5 syntax
 
 // Parse JSON
 app.use(express.json());
+app.use(express.static(path.join(process.cwd(), "public")));
 // Routes
 app.use('/api/user', apiRouter);
 app.use('/api/ai', aiRouter);

@@ -1,3 +1,4 @@
+const { textToSpeech } = require('../ElevenLab/VoiceChecks');
 const CallGeminiWithTxt = require("../AI/CallGemini");
 const extractJSON = require("../AI/extractJson");
 const makeSoilFertilizerPrompt = require("../AI/soilFertilizerPrompt");
@@ -14,7 +15,8 @@ const soil = async (req, res) => {
     const prompt = makeSoilFertilizerPrompt(locality, cropType, growthStage, soilType, message);
     const responseTxt = await CallGeminiWithTxt(prompt);
     const responseJson = await extractJSON(responseTxt);
-    res.status(200).json({ message: "Success!", data: responseJson });
+    textToSpeech(responseJson.speech_index, 'public/output.mp3');
+    res.status(200).json({ message: "Success!", data: responseJson, audio: 'http://localhost:3000/public/output.mp3' });
   } catch (error) {
     console.log(error);
   }

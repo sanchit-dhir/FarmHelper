@@ -38,7 +38,7 @@ const Login = () => {
         localStorage.setItem("token", res.data.token);
         toast.success("Login successful!");
         // 👉 Redirect if needed
-        // window.location.href = "/dashboard";
+        window.location.href = "/dashboard";
       } else {
         toast.error("Invalid response from server");
       }
@@ -53,7 +53,7 @@ const Login = () => {
   return (
     <div className="relative min-h-screen bg-n-8 overflow-hidden">
       <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-      
+
       {/* Audio Element */}
       <audio
         ref={audioRef}
@@ -62,7 +62,7 @@ const Login = () => {
         onPause={() => setIsPlaying(false)}
         onPlay={() => setIsPlaying(true)}
       />
-      
+
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-n-8 via-n-7 to-n-6">
         <div className="absolute top-0 left-0 w-full h-full">
@@ -118,7 +118,7 @@ const Login = () => {
                         </svg>
                       ) : (
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z"/>
+                          <path d="M8 5v14l11-7z" />
                         </svg>
                       )}
                     </button>
